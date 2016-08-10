@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6741860b-8a8f-4863-b63d-dd2557f38791" activeEnvironment="Default" name="saaj" resourceRoot="" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="58180517-b122-4ac3-b399-94dd2e1cfdae" wsaVersion="NONE" name="AttachServiceSoap" type="wsdl" bindingName="{http://tempuri.org/}AttachServiceSoap" soapVersion="1_1" anonymous="optional" definition="file:/redhat/projects/workspace/saaj/src/main/resources/saaj.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/redhat/projects/workspace/saaj/src/main/resources/saaj.wsdl"><con:part><con:url>file:/redhat/projects/workspace/saaj/src/main/resources/saaj.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="saaj" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:saaj="urn:saaj:att" xmlns:elm="urn:saaj:xsd" xmlns:xsd="http://www.w3.org/2000/10/XMLSchema" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://tempuri.org/">
+  <wsdl:documentation>Version 1.2</wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="request">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="username" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="msg" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="msg" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="requestMsg">
+    <wsdl:part name="parametersIn" element="tns:request"/>
+  </wsdl:message>
+  <wsdl:message name="responseMsg">
+    <wsdl:part name="parametersOut" element="tns:response"/>
+  </wsdl:message>
+  <wsdl:portType name="AttachServiceSoap">
+    <wsdl:operation name="SendAttachment">
+      <wsdl:input message="tns:requestMsg"/>
+      <wsdl:output message="tns:responseMsg"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AttachServiceSoap" type="tns:AttachServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="SendAttachment">
+      <soap:operation soapAction="http://tempuri.org/AttachService" style="document"/>
+      <wsdl:input>
+        <mime:multipartRelated>
+          <mime:part>
+            <soap:body use="literal" parts="parametersIn"/>
+            <!--use="encoded" namespace="http://mynamespace" encodingStyle="http://schemas.xmlsoap.org/soap/encoding" 
+							/>-->
+          </mime:part>
+          <mime:part>
+            <mime:content part="attach" type="text/plain"/>
+          </mime:part>
+        </mime:multipartRelated>
+      </wsdl:input>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AttachService">
+    <wsdl:port name="AttachServiceSoap" binding="tns:AttachServiceSoap">
+      <soap:address location="http://localhost:9090/attachment"/>
+    </wsdl:port>
+  </wsdl:service>
+  <!--<wsdl:portType name="saajporttype">-->
+  <!--<wsdl:operation name="sendattachment">-->
+  <!--<wsdl:input message="saaj:soaprequest" />-->
+  <!--<wsdl:output message="saaj:soapresponse" />-->
+  <!--<wsdl:fault message="saaj:soapfault" />-->
+  <!--</wsdl:operation>-->
+  <!--</wsdl:portType>-->
+  <!--<wsdl:binding name="saajbinding" type="saaj:saajporttype">-->
+  <!--<soap:binding style="document"-->
+  <!--transport="http://schemas.xmlsoap.org/soap/http" />-->
+  <!--<wsdl:operation name="sendattachment">-->
+  <!--<soap:operation soapAction="request" style="document" />-->
+  <!--<wsdl:input>-->
+  <!--<mime:multipartRelated>-->
+  <!--<mime:part>-->
+  <!--<soap:body part="payload" use="literal" />-->
+  <!--</mime:part>-->
+  <!--<mime:part>-->
+  <!--<mime:content part="attachment" type="text/plain" />-->
+  <!--</mime:part>-->
+  <!--</mime:multipartRelated>-->
+  <!--</wsdl:input>-->
+  <!--<wsdl:output>-->
+  <!--<soap:body use="literal" />-->
+  <!--</wsdl:output>-->
+  <!--<wsdl:fault>-->
+  <!--<soap:fault use="literal" />-->
+  <!--</wsdl:fault>-->
+  <!--</wsdl:operation>-->
+  <!--</wsdl:binding>-->
+  <!--<wsdl:service name="saajservice">-->
+  <!--<wsdl:port binding="saaj:saajbinding" name="saajport">-->
+  <!--<soap:address location="http://localhost:9090/attachment" />-->
+  <!--</wsdl:port>-->
+  <!--</wsdl:service>-->
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:9090/attachment</con:endpoint></con:endpoints><con:operation id="22df3550-58f6-437b-acc0-e528fad2ae8d" isOneWay="false" action="http://tempuri.org/AttachService" name="SendAttachment" bindingOperationName="SendAttachment" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="aed44056-9416-4d68-b27e-97939b312ab2" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:9090/attachment</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:request>
+         <tem:username>mthi26</tem:username>
+         <tem:msg>this is a message</tem:msg>
+      </tem:request>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:attachment><con:name>numbers.txt</con:name><con:contentType>text/plain</con:contentType><con:size>19</con:size><con:contentId>numbers.txt</con:contentId><con:url>/redhat/projects/workspace/saaj/src/main/resources/numbers.txt</con:url><con:data>UEsDBBQACAgIADZWA0kAAAAAAAAAAAAAAAALAAAAbnVtYmVycy50eHQzNDI2MTUzt7DksrQwNzM1MTYyBABQSwcIzzoUZhUAAAATAAAAUEsBAhQAFAAICAgANlYDSc86FGYVAAAAEwAAAAsAAAAAAAAAAAAAAAAAAAAAAG51bWJlcnMudHh0UEsFBgAAAAABAAEAOQAAAE4AAAAAAA==</con:data><con:id>5a0ed6e1-ab02-4d44-9686-49d554a5647d</con:id></con:attachment><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/AttachService"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService id="1281d3e5-465f-440b-9333-31ec7500012e" port="8080" path="/" host="mthirion.remote.csb" name="MockService 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="SendAttachment" id="e29a1f25-13fe-4090-b383-14a1dc0511be" interface="AttachServiceSoap" operation="SendAttachment"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="d7d2bf2c-455e-4ccd-aeb8-d5df8c9ab39d" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:response>
+         <tem:msg>?</tem:msg>
+      </tem:response>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/AttachService"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>
