@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+	<camelContext id="camelContext-3ffb599e-cb39-4536-b963-5bc1e47d6f27"
+		xmlns="http://camel.apache.org/schema/spring">
+
+		<restConfiguration component="jetty" host="localhost"
+			port="9098" bindingMode="json" />
+
+		<rest path="/rest">
+			<get uri="/test">
+				<to uri="direct:message" />
+			</get>
+		</rest>
+
+		<route>
+			<from uri="direct:message" />
+			<log message="test msg"/>
+			<setBody>
+				<constant>Ok -- returned from the GET /rest/test</constant>
+			</setBody>
+		</route>
+
+	</camelContext>
+</beans>
